@@ -18,3 +18,7 @@ an array accessor method that would allow them to be access as [1, 2].
 
 
 For examples consult Test.cpp which contains a number of use cases.
+
+
+##License
+This project uses the MIT license.
