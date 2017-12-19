@@ -1,7 +1,8 @@
-#Fixed Fragmented Buffer Allocation Utility
+# Fixed Fragmented Buffer Allocation Utility
 
 Allocation system to allow fragmented memory buffers in a fixed size suepr-buffer.
 
+## Description
 
 This class is mostly useful on memory constrained devices such as the Arduino.
 On those devices you may want to create and delete arrays of objects reasonably often.
@@ -17,8 +18,8 @@ then they're assigned slots 1 and 3. They can then get a class from the DynamicB
 an array accessor method that would allow them to be access as [1, 2].
 
 
-For examples consult Test.cpp which contains a number of use cases.
+For examples consult Test.cpp which contains a number of use cases. The header file is also documented.
 
 
-##License
+## License
 This project uses the MIT license.
