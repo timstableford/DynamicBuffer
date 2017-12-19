@@ -106,6 +106,13 @@ public:
             inline uint16_t size() {
                 return m_size;
             }
+
+            /**
+              * \brief Returns true if any underlying buffer slots apply to this object.
+              */
+            bool isValid() {
+                return m_buffer.isSlotUsed(m_slot);
+            }
         private:
             DynamicBuffer<T> &m_buffer;
             int8_t m_slot;
