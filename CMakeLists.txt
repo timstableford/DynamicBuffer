@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 11)
 add_library(DynamicBuffer INTERFACE)
 target_include_directories(DynamicBuffer INTERFACE .)
 
+if (TEST)
 add_subdirectory(googletest)
 
 enable_testing()
@@ -14,3 +15,4 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR} .)
 
 add_executable(Test Test.cpp)
 target_link_libraries(Test gtest gtest_main DynamicBuffer)
+endif(TEST)
