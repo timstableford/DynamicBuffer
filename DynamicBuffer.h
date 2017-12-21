@@ -39,6 +39,9 @@ public:
         return m_data[index];
     }
     inline uint16_t size() {
+        if (m_data == nullptr) {
+            return 0;
+        }
         return m_length;
     }
 private:

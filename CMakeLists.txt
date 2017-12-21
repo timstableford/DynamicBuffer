@@ -13,6 +13,6 @@ add_subdirectory(googletest)
 enable_testing()
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR} .)
 
-add_executable(Test Test.cpp)
-target_link_libraries(Test gtest gtest_main DynamicBuffer)
+add_executable(${PROJECT_NAME}_Test Test.cpp)
+target_link_libraries(${PROJECT_NAME}_Test gtest gtest_main DynamicBuffer)
 endif(TEST)
