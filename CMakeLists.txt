@@ -8,7 +8,9 @@ add_library(DynamicBuffer INTERFACE)
 target_include_directories(DynamicBuffer INTERFACE .)
 
 if (TEST)
-add_subdirectory(googletest)
+if (NOT gtest_SOURCE_DIR)
+add_subdirectory(lib/googletest)
+endif(NOT gtest_SOURCE_DIR)
 
 enable_testing()
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR} .)

@@ -23,6 +23,25 @@ public:
       */
     virtual T& operator[](int index) = 0;
     virtual uint16_t size() = 0;
+    virtual bool assign(T* data, uint16_t length) {
+        if (length > size()) {
+            return false;
+        }
+        for (uint16_t i = 0; i < length; i++) {
+            (*this)[i] = data[i];
+        }
+        return true;
+    }
+    virtual bool assign(GenericBuffer<T> &data) {
+        if (data.size() > size()) {
+            return false;
+        }
+        uint16_t length = size();
+        for (uint16_t i = 0; i < length; i++) {
+            (*this)[i] = data[i];
+        }
+        return true;
+    }
 };
 
 /**
@@ -47,6 +66,29 @@ public:
 private:
     T* m_data;
     uint16_t m_length;
+};
+
+/**
+  * \brief Wraps a generic buffer and applies an offset value.
+  */
+template <class T>
+class OffsetBuffer : public GenericBuffer<T> {
+public:
+    OffsetBuffer(GenericBuffer<T> &data, uint16_t offset) : m_data(data), m_offset(offset) {
+        // Nothing to do.
+    }
+    T& operator[](int index) {
+        return m_data[index + m_offset];
+    }
+    inline uint16_t size() {
+        if (m_offset >= m_data.size()) {
+            return 0;
+        }
+        return m_data.size() - m_offset;
+    }
+private:
+    GenericBuffer<T> &m_data;
+    uint16_t m_offset;
 };
 
 /**
@@ -188,6 +230,26 @@ public:
                 m_chunkMap[i] = slot;
                 allocated += m_chunkSize;
             }
+        }
+        return slot;
+    }
+
+    /**
+      * \brief Allocates a slot of the given size and adds data to it.
+      * \data An array of data to assign to the slot.
+      * \param size Size of the number of elements to allocate.
+      * \return SLOT_FREE on failure, or otherwise a valid slot > 0.
+      */
+    int8_t allocate(T* data, uint16_t size) {
+        int8_t slot = allocate(size);
+        if (slot == SLOT_FREE) {
+            return slot;
+        }
+        Buffer buffer = getBuffer(slot);
+        bool result = buffer.assign(data, size);
+        if (!result) {
+            this->free(slot);
+            return SLOT_FREE;
         }
         return slot;
     }
