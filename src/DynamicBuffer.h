@@ -1,11 +1,7 @@
 #ifndef __DYNAMIC_BUFFER_H__
 #define __DYNAMIC_BUFFER_H__
 
-// For compilation on Arduino to work.
-#undef min
-#undef max
-#include <cstdint>
-#include <functional>
+#include <stdint.h>
 
 #define SLOT_FREE (-1)
 
@@ -41,6 +37,14 @@ public:
             (*this)[i] = data[i];
         }
         return true;
+    }
+    virtual void write(T* data, uint16_t length) {
+        if (length > size()) {
+            length = size();
+        }
+        for (uint16_t i = 0; i < length; i++) {
+            data[i] = (*this)[i];
+        }
     }
 };
 
@@ -138,16 +142,6 @@ public:
                 return const_cast<T&>(m_invalid);
             }
 
-            void writeTo(std::function<void(T* data, uint16_t offset, uint16_t dataLength)> callback) {
-                uint16_t chunkCount = 0;
-                for (int8_t i = 0; i < m_buffer.m_numChunks; i++) {
-                    if (m_buffer.m_chunkMap[i] == m_slot) {
-                        callback(m_buffer.m_buffer + (i * m_buffer.m_chunkSize), chunkCount * m_buffer.m_chunkSize, m_buffer.m_chunkSize);
-                        chunkCount++;
-                    }
-                }
-            }
-
             inline uint16_t size() {
                 return m_size;
             }
@@ -162,7 +156,7 @@ public:
             DynamicBuffer<T> &m_buffer;
             int8_t m_slot;
             uint16_t m_size;
-            const uint8_t m_invalid = 0;
+            const T m_invalid = {};
     };
     /**
       * \brief Created a DynamicBuffer class. This function calls new so
