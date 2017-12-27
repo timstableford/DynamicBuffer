@@ -1,3 +1,5 @@
+#ifdef __LINUX_BUILD
+
 #include <cstring>
 #include <cstdio>
 #include <functional>
@@ -64,3 +66,5 @@ TEST(IndependentMethod, TestCustomType) {
     DynamicBuffer<TestStruct> buffer(1, 10);
     ASSERT_EQ(10, buffer.getFree());
 }
+
+#endif // __LINUX_BUILD

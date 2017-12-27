@@ -1,0 +1,21 @@
+{
+  "name": "DynamicBuffer",
+  "keywords": "buffer, memory-management",
+  "description": "A utility to allow dynamically sized and fragmented buffers within a fixed size buffer",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/timstableford/DynamicBuffer.git"
+  },
+  "authors":
+  [
+    {
+      "name": "Tim Stableford",
+      "email": "tim.stableford1@gmail.com",
+      "url": "https://tstableford.co.uk",
+      "maintainer": true
+    }
+  ],
+  "version": "1.0.0",
+  "platforms": "*"
+}
