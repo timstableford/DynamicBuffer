@@ -28,11 +28,13 @@ public:
         }
         return true;
     }
-    virtual bool assign(GenericBuffer<T> &data) {
-        if (data.size() > size()) {
+    virtual bool assign(GenericBuffer<T> &data, uint16_t length = 0) {
+        if (length == 0) {
+            length = data.size();
+        }
+        if (length > size()) {
             return false;
         }
-        uint16_t length = size();
         for (uint16_t i = 0; i < length; i++) {
             (*this)[i] = data[i];
         }
