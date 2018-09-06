@@ -3,14 +3,14 @@ project (DynamicBuffer)
 
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic")
 set(CMAKE_CXX_STANDARD 11)
-option(TEST "Build all tests." OFF)
+option(BUILD_TESTS "Build all tests." OFF)
 
 add_definitions(-D__LINUX_BUILD)
 
 add_library(DynamicBuffer INTERFACE)
 target_include_directories(DynamicBuffer INTERFACE src)
 
-if (TEST)
+if (BUILD_TESTS)
 if (NOT gtest_SOURCE_DIR)
 add_subdirectory(lib/googletest)
 endif(NOT gtest_SOURCE_DIR)
