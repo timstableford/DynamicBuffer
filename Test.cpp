@@ -62,6 +62,12 @@ TEST(IndependentMethod, TestArrayBufferWrapper) {
     ASSERT_EQ(10, arr[10]);
 }
 
+TEST(IndependentMethod, TestBufferOverrun) {
+    uint8_t arr[2];
+    ArrayBufferWrapper<uint8_t> wrapper(arr, 2);
+    ASSERT_EQ(uint8_t{}, wrapper[5]);
+}
+
 TEST(IndependentMethod, TestCustomType) {
     DynamicBuffer<TestStruct> buffer(1, 10);
     ASSERT_EQ(10, buffer.getFree());
