@@ -69,6 +69,10 @@ public:
         }
         return m_length;
     }
+    void setData(T* data, uint16_t length) {
+        m_data = data;
+        m_length = length;
+    }
 private:
     T* m_data;
     uint16_t m_length;
