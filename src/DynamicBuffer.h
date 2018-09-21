@@ -62,6 +62,7 @@ public:
     }
     T& operator[](int index) {
         if (index >= m_length) {
+            m_invalid = {};
             return const_cast<T&>(m_invalid);
         }
         return m_data[index];
@@ -79,7 +80,7 @@ public:
 private:
     T* m_data;
     uint16_t m_length;
-    const T m_invalid = {};
+    T m_invalid = {};
 };
 
 /**
